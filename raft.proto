@@ -49,11 +49,13 @@ message AppendTermIdMessage {
   int32 prev_log_term = 4;
   repeated Entry entries = 5;
   int32 leader_commit = 6;
+  int32 expire_Lease=7;
 }
 
 message TermResultMessage {
   int32 term = 1;
   bool result = 2;
+  int32 time_lease=3;
 }
 
 message PeriodMessage { int32 period = 1; }

@@ -15,7 +15,7 @@ def connect():
         message = pb2.EmptyMessage()
         try:
             _ = stub.GetStatus(message)
-            print(f'Connected to server {id}\n')
+            # print(f'Connected to server {id}\n')
             return stub
         except:
             pass
@@ -54,25 +54,21 @@ def getVal(key):
 
     try:
         response = stub.GetVal(message)
-        if response.success:
-            print(f'{key} = {response.value}')
-        else:
-            print("Something went wrong, try again later\n")
+        print(f'{key} = {response.value}')
     except grpc.RpcError:
         print("Server is not avaliable\n")
 
 
 def setVal(key, value):
     stub = connect()
-    # print("hello")
     message = pb2.KeyValMessage(key=key, value=value)
-
 
     try:
         response = stub.SetVal(message)
         if response.success:
-            pass
+            print("SUCCESS")
         else:
+            print("FAIL")
             print("Something went wrong, try again later\n")
     except grpc.RpcError:
         print("Server is not available\n")
@@ -107,10 +103,10 @@ def client():
             if command == "getleader":
                 if check(0, len(command_args)):
                     continue
-                # try:
-                get_leader()
-                # except:
-                #     print("No leader")
+                try:
+                    get_leader()
+                except:
+                    pass
             elif command == "suspend":
                 if check(1, len(command_args)):
                     continue
